@@ -10,7 +10,7 @@ const useCurrencyInfo = (currency) => {
       .then((res) => setData(res[currency]));
    // console.log("currency data fetched", data);
   }, [currency]);
- // console.log("currency data fetched", data);
+  console.log("currency data fetched", data);
   return data;
 };
 

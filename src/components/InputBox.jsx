@@ -4,8 +4,9 @@ const inputBox = ({
   label,
   selectCurrency,
   onCurrencyChange,
-  currencyOptions=[],
-  setFrom
+  onAmountChange,
+  amount,
+  currencyOptions = [],
 }) => {
   const amountInputId = useId();
   return (
@@ -18,9 +19,10 @@ const inputBox = ({
           id={amountInputId}
           className="outline-none w-full bg-transparent border border-gray  py-1.5"
           type="number"
-          // onChange={(e) =>
-          //   onAmountChange && onAmountChange(Number(e.target.value))
-          // }
+          value={amount}
+          onChange={(e) =>
+            onAmountChange && onAmountChange(Number(e.target.value))
+          }
         />
       </div>
       <div className="w-1/2 flex flex-wrap justify-end text-right">
@@ -28,11 +30,9 @@ const inputBox = ({
         <select
           className="rounded-lg px-1 py-1 bg-gray cursor-pointer outlie-none"
           value={selectCurrency}
-          onChange={(e) =>
-            onCurrencyChange && onCurrencyChange(e.target.value)
-          }
+          onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}
         >
-          {currencyOptions && currencyOptions.map((currency) => (
+          {currencyOptions.map((currency) => (
             <option key={currency} value={currency}>
               {currency}
             </option>

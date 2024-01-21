@@ -7,9 +7,16 @@ import useCurrencyInfo from "./hooks/useCurrencyInfo";
 function App() {
   const [amount, setAmount] = useState(0);
   const [from, setFrom] = useState("usd");
+  const [to, setTo] = useState("pkr");
+  const [convertedAmount, setConvertedAmount] = useState(0);
   const currencyInfo = useCurrencyInfo(from);
   const options = Object.keys(currencyInfo);
   // console.log(options);
+
+const handleSubmit = (e)=> {
+  e.preventDefault()
+  setConvertedAmount(amount * currencyInfo[to])
+}
 
   return (
     <div
@@ -22,15 +29,15 @@ function App() {
     >
       <div className="w-full">
         <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="w-full mb-1">
               <InputBox
-                setFrom ={setFrom}
-                label={from}
+                label={"From"}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setAmount(amount)}
+                onCurrencyChange={(currency) => setFrom(currency)}
                 selectCurrency={from}
-                // onAmountChange = {(amount)=> setAmount(amount)}
+                 onAmountChange = {(amount)=> setAmount(amount)}
+                 amount = {amount}
               />
             </div>
             <div className="relative w-full h-0.5">
@@ -42,7 +49,14 @@ function App() {
               </button>
             </div>
             <div className="w-full mt-1 mb-4">
-              <InputBox />
+              <InputBox
+                label={'TO'}
+                //onAmountChange = {(amount)=> setAmount(amount)}
+                amount = {convertedAmount}
+                currencyOptions={options}
+                onCurrencyChange={(currency) => setTo(currency)}
+                selectCurrency={to}
+              />
             </div>
             <button
               type="submit"
